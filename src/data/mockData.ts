@@ -1,13 +1,13 @@
 import { DiscussionItem, Admin, DashboardStats, ChartData } from '@/types';
 
-// 模拟讨论数据
+// Mock discussion data
 export const mockDiscussionData: DiscussionItem[] = [
   {
     id: '1',
-    title: '机器学习基础概念讨论',
-    content: '请大家分享一下对机器学习基础概念的理解，特别是监督学习和无监督学习的区别。',
-    author: '张教授',
-    authorEmail: 'zhang.prof@university.edu',
+    title: 'Machine Learning Fundamentals Discussion',
+    content: 'Please share your understanding of machine learning fundamentals, especially the differences between supervised and unsupervised learning.',
+    author: 'Prof. Johnson',
+    authorEmail: 'johnson.prof@university.edu',
     createdAt: '2024-09-20T10:30:00Z',
     updatedAt: '2024-09-20T10:30:00Z',
     priority: 'high',
@@ -16,14 +16,14 @@ export const mockDiscussionData: DiscussionItem[] = [
     level: 'topic',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/1',
     replyCount: 15,
-    suggestedReply: '这是一个很好的问题，建议从数据标注的角度来理解两者的区别。'
+    suggestedReply: 'This is an excellent question. I suggest approaching the difference from a data labeling perspective.'
   },
   {
     id: '2',
-    title: '关于监督学习的理解',
-    content: '我认为监督学习是指我们有标注好的数据集，可以训练模型预测新的数据。',
-    author: '李同学',
-    authorEmail: 'li.student@university.edu',
+    title: 'Understanding Supervised Learning',
+    content: 'I believe supervised learning refers to having labeled datasets that we can use to train models to predict new data.',
+    author: 'Emma Chen',
+    authorEmail: 'emma.chen@university.edu',
     createdAt: '2024-09-20T11:15:00Z',
     updatedAt: '2024-09-20T11:15:00Z',
     priority: 'medium',
@@ -31,17 +31,17 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'positive',
     level: 'post',
     parentId: '1',
-    parentTitle: '机器学习基础概念讨论',
+    parentTitle: 'Machine Learning Fundamentals Discussion',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/1#entry-2',
     replyCount: 3,
-    suggestedReply: '很好的理解！可以进一步补充一些具体的算法例子。'
+    suggestedReply: 'Great understanding! You could further supplement with some specific algorithm examples.'
   },
   {
     id: '3',
-    title: '数据结构作业讨论',
-    content: '关于二叉树遍历的作业，有同学遇到困难吗？我们可以一起讨论。',
-    author: '王助教',
-    authorEmail: 'wang.ta@university.edu',
+    title: 'Data Structures Assignment Discussion',
+    content: 'Regarding the binary tree traversal assignment, are any students facing difficulties? We can discuss together.',
+    author: 'TA Mike Wilson',
+    authorEmail: 'mike.wilson@university.edu',
     createdAt: '2024-09-19T14:20:00Z',
     updatedAt: '2024-09-19T14:20:00Z',
     priority: 'high',
@@ -50,14 +50,14 @@ export const mockDiscussionData: DiscussionItem[] = [
     level: 'topic',
     link: 'https://canvas.university.edu/courses/124/discussion_topics/3',
     replyCount: 8,
-    suggestedReply: '建议从递归的角度来理解二叉树遍历。'
+    suggestedReply: 'I suggest understanding binary tree traversal from a recursive perspective.'
   },
   {
     id: '4',
-    title: '前序遍历的实现',
-    content: '我在实现前序遍历时遇到了困难，递归部分不太理解。',
-    author: '陈同学',
-    authorEmail: 'chen.student@university.edu',
+    title: 'Preorder Traversal Implementation',
+    content: 'I am having trouble implementing preorder traversal, particularly with the recursive part.',
+    author: 'Alex Rodriguez',
+    authorEmail: 'alex.rodriguez@university.edu',
     createdAt: '2024-09-19T15:10:00Z',
     updatedAt: '2024-09-19T15:10:00Z',
     priority: 'medium',
@@ -65,17 +65,17 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'negative',
     level: 'post',
     parentId: '3',
-    parentTitle: '数据结构作业讨论',
+    parentTitle: 'Data Structures Assignment Discussion',
     link: 'https://canvas.university.edu/courses/124/discussion_topics/3#entry-4',
     replyCount: 2,
-    suggestedReply: '可以画个图来理解递归过程，先访问根节点，再递归左子树和右子树。'
+    suggestedReply: 'Try drawing a diagram to understand the recursive process: visit root first, then recursively traverse left and right subtrees.'
   },
   {
     id: '5',
-    title: 'Python工作坊反馈',
-    content: '今天的Python工作坊内容很丰富，特别是关于数据分析的部分。',
-    author: '刘同学',
-    authorEmail: 'liu.student@university.edu',
+    title: 'Python Workshop Feedback',
+    content: 'Today\'s Python workshop was very comprehensive, especially the data analysis section.',
+    author: 'Sarah Kim',
+    authorEmail: 'sarah.kim@university.edu',
     createdAt: '2024-09-18T16:45:00Z',
     updatedAt: '2024-09-18T16:45:00Z',
     priority: 'low',
@@ -84,14 +84,14 @@ export const mockDiscussionData: DiscussionItem[] = [
     level: 'topic',
     link: 'https://canvas.university.edu/courses/125/discussion_topics/5',
     replyCount: 12,
-    suggestedReply: '很高兴听到你的积极反馈！有什么具体问题可以继续讨论。'
+    suggestedReply: 'Great to hear your positive feedback! Feel free to continue the discussion with any specific questions.'
   },
   {
     id: '6',
-    title: '关于pandas库的使用',
-    content: '工作坊中提到的pandas库确实很强大，但是语法有点复杂。',
-    author: '吴同学',
-    authorEmail: 'wu.student@university.edu',
+    title: 'About Using Pandas Library',
+    content: 'The pandas library mentioned in the workshop is indeed powerful, but the syntax seems a bit complex.',
+    author: 'David Park',
+    authorEmail: 'david.park@university.edu',
     createdAt: '2024-09-18T17:30:00Z',
     updatedAt: '2024-09-18T17:30:00Z',
     priority: 'medium',
@@ -99,17 +99,17 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'neutral',
     level: 'post',
     parentId: '5',
-    parentTitle: 'Python工作坊反馈',
+    parentTitle: 'Python Workshop Feedback',
     link: 'https://canvas.university.edu/courses/125/discussion_topics/5#entry-6',
     replyCount: 1,
-    suggestedReply: '建议多练习基础操作，从简单的数据处理开始。'
+    suggestedReply: 'I recommend practicing with basic operations first, starting with simple data processing tasks.'
   },
   {
     id: '7',
-    title: '算法复杂度分析',
-    content: '请问老师，如何更好地理解时间复杂度和空间复杂度的概念？',
-    author: '赵同学',
-    authorEmail: 'zhao.student@university.edu',
+    title: 'Algorithm Complexity Analysis',
+    content: 'Could you help me better understand the concepts of time complexity and space complexity?',
+    author: 'Lisa Thompson',
+    authorEmail: 'lisa.thompson@university.edu',
     createdAt: '2024-09-17T09:15:00Z',
     updatedAt: '2024-09-17T09:15:00Z',
     priority: 'high',
@@ -118,14 +118,14 @@ export const mockDiscussionData: DiscussionItem[] = [
     level: 'topic',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/7',
     replyCount: 6,
-    suggestedReply: '可以通过具体的算法例子来理解，比如排序算法的复杂度分析。'
+    suggestedReply: 'You can understand this through concrete algorithm examples, such as complexity analysis of sorting algorithms.'
   },
   {
     id: '8',
-    title: '大O表示法的疑问',
-    content: '大O表示法中，为什么常数项可以忽略？这样准确吗？',
-    author: '周同学',
-    authorEmail: 'zhou.student@university.edu',
+    title: 'Questions about Big O Notation',
+    content: 'In Big O notation, why can constant terms be ignored? Is this approach accurate?',
+    author: 'James Brown',
+    authorEmail: 'james.brown@university.edu',
     createdAt: '2024-09-17T10:45:00Z',
     updatedAt: '2024-09-17T10:45:00Z',
     priority: 'medium',
@@ -133,36 +133,74 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'negative',
     level: 'post',
     parentId: '7',
-    parentTitle: '算法复杂度分析',
+    parentTitle: 'Algorithm Complexity Analysis',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/7#entry-8',
     replyCount: 0,
-    suggestedReply: '大O表示法关注的是增长趋势，当输入规模足够大时，主导项起决定作用。'
+    suggestedReply: 'Big O notation focuses on growth trends. When input size is large enough, the dominant term determines the overall behavior.'
+  },
+  {
+    id: '9',
+    title: 'JavaScript Fundamentals Workshop',
+    content: 'Looking forward to tomorrow\'s JavaScript workshop. Any preparation materials we should review beforehand?',
+    author: 'Maria Garcia',
+    authorEmail: 'maria.garcia@university.edu',
+    createdAt: '2024-09-16T13:20:00Z',
+    updatedAt: '2024-09-16T13:20:00Z',
+    priority: 'low',
+    type: 'workshop',
+    sentiment: 'positive',
+    level: 'topic',
+    link: 'https://canvas.university.edu/courses/126/discussion_topics/9',
+    replyCount: 4,
+    suggestedReply: 'Please review basic HTML and CSS concepts. We\'ll start with DOM manipulation examples.'
+  },
+  {
+    id: '10',
+    title: 'Database Design Assignment Help',
+    content: 'I\'m struggling with normalizing my database schema for the final project. Could someone provide guidance?',
+    author: 'Kevin Lee',
+    authorEmail: 'kevin.lee@university.edu',
+    createdAt: '2024-09-15T11:30:00Z',
+    updatedAt: '2024-09-15T11:30:00Z',
+    priority: 'high',
+    type: 'assignment',
+    sentiment: 'negative',
+    level: 'topic',
+    link: 'https://canvas.university.edu/courses/127/discussion_topics/10',
+    replyCount: 7,
+    suggestedReply: 'Start by identifying functional dependencies, then apply the normalization forms step by step.'
   }
 ];
 
-// 模拟管理员数据
+// Mock admin data
 export const mockAdminData: Admin[] = [
   {
     id: '1',
-    name: '张教授',
-    email: 'zhang.prof@university.edu',
+    name: 'Dr. Emily Johnson',
+    email: 'emily.johnson@university.edu',
     createdAt: '2024-01-15T08:00:00Z'
   },
   {
     id: '2',
-    name: '王助教',
-    email: 'wang.ta@university.edu',
+    name: 'Mike Wilson',
+    email: 'mike.wilson@university.edu',
     createdAt: '2024-02-20T10:30:00Z'
   },
   {
     id: '3',
-    name: '李老师',
-    email: 'li.teacher@university.edu',
+    name: 'Prof. Sarah Davis',
+    email: 'sarah.davis@university.edu',
     createdAt: '2024-03-10T14:15:00Z'
+  },
+  {
+    id: '4',
+    name: 'Dr. Robert Chen',
+    email: 'robert.chen@university.edu',
+    createdAt: '2024-04-05T09:20:00Z'
   }
 ];
 
-// 获取仪表板统计数据
+// Get dashboard statistics
 export const getDashboardStats = (): DashboardStats => {
   const topics = mockDiscussionData.filter(item => item.level === 'topic').length;
   const posts = mockDiscussionData.filter(item => item.level === 'post').length;
@@ -175,7 +213,7 @@ export const getDashboardStats = (): DashboardStats => {
   };
 };
 
-// 获取图表数据
+// Get chart data
 export const getChartData = (): ChartData => {
   const priorityCount = {
     low: mockDiscussionData.filter(item => item.priority === 'low').length,

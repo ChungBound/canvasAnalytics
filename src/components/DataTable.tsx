@@ -11,6 +11,7 @@ import {
   ArrowDown,
 } from "lucide-react";
 import { DiscussionItem } from "@/types";
+import Tooltip from "./Tooltip";
 
 interface DataTableProps {
   items: DiscussionItem[];
@@ -170,20 +171,14 @@ const DataTable: React.FC<DataTableProps> = ({ items, onViewDetail }) => {
         </h3>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="table">
+      <div className="overflow-x-auto lg:overflow-x-visible overflow-y-visible">
+        <table className="table min-w-full">
           <thead className="table-header">
             <tr>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
-                <button
-                  onClick={() => handleSort("title")}
-                  className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  <span>Title</span>
-                  {getSortIcon("title")}
-                </button>
+              <th className="px-4 py-4 text-left font-semibold text-gray-900 dark:text-white w-[22%] min-w-[180px]">
+                <span>Content</span>
               </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
+              <th className="px-4 py-4 text-left font-semibold text-gray-900 dark:text-white w-[14%] min-w-[110px]">
                 <button
                   onClick={() => handleSort("author")}
                   className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -192,55 +187,31 @@ const DataTable: React.FC<DataTableProps> = ({ items, onViewDetail }) => {
                   {getSortIcon("author")}
                 </button>
               </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
+              <th className="px-4 py-4 text-left font-semibold text-gray-900 dark:text-white w-[16%] min-w-[130px]">
                 <button
                   onClick={() => handleSort("createdAt")}
                   className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  <span>Created</span>
+                  <span>Date</span>
                   {getSortIcon("createdAt")}
                 </button>
               </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
-                <button
-                  onClick={() => handleSort("priority")}
-                  className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  <span>Priority</span>
-                  {getSortIcon("priority")}
-                </button>
+              <th className="px-4 py-4 text-center font-semibold text-gray-900 dark:text-white w-[8%] min-w-[70px]">
+                <span>Level</span>
               </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
-                <button
-                  onClick={() => handleSort("type")}
-                  className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  <span>Type</span>
-                  {getSortIcon("type")}
-                </button>
+              <th className="px-4 py-4 text-left font-semibold text-gray-900 dark:text-white w-[20%] min-w-[160px]">
+                <span>Tags</span>
               </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
-                Level
-              </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
-                <button
-                  onClick={() => handleSort("sentiment")}
-                  className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  <span>Sentiment</span>
-                  {getSortIcon("sentiment")}
-                </button>
-              </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
+              <th className="px-4 py-4 text-center font-semibold text-gray-900 dark:text-white w-[8%] min-w-[70px]">
                 <button
                   onClick={() => handleSort("replyCount")}
-                  className="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="flex items-center justify-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-full"
                 >
                   <span>Replies</span>
                   {getSortIcon("replyCount")}
                 </button>
               </th>
-              <th className="table-cell text-left font-semibold text-gray-900 dark:text-white">
+              <th className="px-4 py-4 text-center font-semibold text-gray-900 dark:text-white w-[12%] min-w-[90px]">
                 Actions
               </th>
             </tr>
@@ -251,71 +222,125 @@ const DataTable: React.FC<DataTableProps> = ({ items, onViewDetail }) => {
                 key={item.id}
                 className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
               >
-                <td className="table-cell">
-                  <div className="max-w-xs">
-                    <p className="font-medium text-gray-900 dark:text-white truncate">
-                      {item.title}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
-                      {item.content.substring(0, 80)}...
-                    </p>
+                {/* Content */}
+                <td className="px-4 py-4 align-middle">
+                  <div className="max-w-md">
+                    <Tooltip content={item.content}>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed cursor-help">
+                        {item.content.length > 20
+                          ? `${item.content.substring(0, 20)}...`
+                          : item.content}
+                      </p>
+                    </Tooltip>
                   </div>
                 </td>
-                <td className="table-cell">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
+
+                {/* Author */}
+                <td className="px-4 py-4 align-middle">
+                  <div
+                    className="flex items-center space-x-2"
+                    style={{ alignItems: "center" }}
+                  >
+                    <div
+                      className="w-7 h-7 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <User className="w-3 h-3 text-white" />
                     </div>
-                    <div>
-                      <p className="font-medium text-gray-900 dark:text-white">
+                    <div
+                      className="min-w-0"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        lineHeight: "1",
+                      }}
+                    >
+                      <p
+                        className="font-medium text-gray-900 dark:text-white text-sm truncate"
+                        style={{ lineHeight: "1", margin: "0", padding: "0" }}
+                      >
                         {item.author}
                       </p>
                     </div>
                   </div>
                 </td>
-                <td className="table-cell">
-                  <div className="flex items-center space-x-1 text-gray-600 dark:text-gray-400">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-sm">
-                      {formatDate(item.createdAt)}
+
+                {/* Date */}
+                <td className="px-4 py-4 align-middle">
+                  <div className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                    <span className="font-medium">
+                      {new Date(item.createdAt).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                    <span className="mx-1 text-gray-400">•</span>
+                    <span className="text-gray-500">
+                      {new Date(item.createdAt).toLocaleTimeString("en-US", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </span>
                   </div>
                 </td>
-                <td className="table-cell">
-                  <span className={`badge ${getPriorityColor(item.priority)}`}>
-                    {capitalizeFirst(item.priority)}
-                  </span>
-                </td>
-                <td className="table-cell">
-                  <span className={`badge ${getTypeColor(item.type)}`}>
-                    {capitalizeFirst(item.type)}
-                  </span>
-                </td>
-                <td className="table-cell">
-                  <span className={`badge ${getLevelColor(item.level)}`}>
+
+                {/* Level */}
+                <td className="px-4 py-4 align-middle text-center">
+                  <span
+                    className={`badge text-xs ${getLevelColor(item.level)}`}
+                  >
                     {capitalizeFirst(item.level)}
                   </span>
                 </td>
-                <td className="table-cell">
-                  <span
-                    className={`badge ${getSentimentColor(item.sentiment)}`}
-                  >
-                    {capitalizeFirst(item.sentiment)}
-                  </span>
-                </td>
-                <td className="table-cell">
-                  <div className="flex items-center space-x-1 text-gray-600 dark:text-gray-400">
-                    <MessageSquare className="w-4 h-4" />
-                    <span className="font-medium">{item.replyCount}</span>
+
+                {/* Tags (Priority, Type, Sentiment) */}
+                <td className="px-4 py-4 align-middle">
+                  <div className="flex items-center gap-1.5 whitespace-nowrap">
+                    <span
+                      className={`badge text-xs ${getPriorityColor(
+                        item.priority
+                      )}`}
+                    >
+                      {capitalizeFirst(item.priority)}
+                    </span>
+                    <span
+                      className={`badge text-xs ${getTypeColor(item.type)}`}
+                    >
+                      {capitalizeFirst(item.type)}
+                    </span>
+                    <span
+                      className={`badge text-xs ${getSentimentColor(
+                        item.sentiment
+                      )}`}
+                    >
+                      {capitalizeFirst(item.sentiment)}
+                    </span>
                   </div>
                 </td>
-                <td className="table-cell">
+
+                {/* Replies */}
+                <td className="px-4 py-4 align-middle text-center">
+                  <div className="flex items-center justify-center space-x-1 text-gray-600 dark:text-gray-400">
+                    <MessageSquare className="w-3 h-3" />
+                    <span className="font-semibold text-sm">
+                      {item.replyCount}
+                    </span>
+                  </div>
+                </td>
+
+                {/* Actions */}
+                <td className="px-4 py-4 align-middle text-center">
                   <button
                     onClick={() => onViewDetail(item)}
-                    className="btn btn-primary btn-sm flex items-center space-x-1"
+                    className="btn btn-primary btn-sm px-3 py-1.5 text-xs hover:shadow-md transition-all"
+                    title="View Details"
                   >
-                    <Eye className="w-4 h-4" />
-                    <span className="hidden sm:inline">View Details</span>
+                    <Eye className="w-3 h-3 lg:mr-1" />
+                    <span className="hidden lg:inline">Details</span>
                   </button>
                 </td>
               </tr>
