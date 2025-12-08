@@ -15,7 +15,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'neutral',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/1',
-    replyCount: 15,
+    replyCount: 1,
     suggestedReply: 'This is an excellent question. I suggest approaching the difference from a data labeling perspective.'
   },
   {
@@ -37,6 +37,60 @@ export const mockDiscussionData: DiscussionItem[] = [
     suggestedReply: 'Great understanding! You could further supplement with some specific algorithm examples.'
   },
   {
+    id: '2-1',
+    title: 'Re: Understanding Supervised Learning',
+    content: 'That\'s correct! Supervised learning uses labeled data to train models. Common examples include classification and regression tasks.',
+    author: 'Prof. Johnson',
+    authorEmail: 'johnson.prof@university.edu',
+    createdAt: '2024-09-20T11:30:00Z',
+    updatedAt: '2024-09-20T11:30:00Z',
+    priority: 'medium',
+    type: 'lecture',
+    sentiment: 'positive',
+    level: 'reply',
+    parentId: '2',
+    parentTitle: 'Understanding Supervised Learning',
+    link: 'https://canvas.university.edu/courses/123/discussion_topics/1#entry-2-1',
+    replyCount: 0,
+    suggestedReply: ''
+  },
+  {
+    id: '2-2',
+    title: 'Re: Understanding Supervised Learning',
+    content: 'I agree! Could you provide some examples of supervised learning algorithms?',
+    author: 'Tom Wilson',
+    authorEmail: 'tom.wilson@university.edu',
+    createdAt: '2024-09-20T12:00:00Z',
+    updatedAt: '2024-09-20T12:00:00Z',
+    priority: 'low',
+    type: 'lecture',
+    sentiment: 'neutral',
+    level: 'reply',
+    parentId: '2',
+    parentTitle: 'Understanding Supervised Learning',
+    link: 'https://canvas.university.edu/courses/123/discussion_topics/1#entry-2-2',
+    replyCount: 0,
+    suggestedReply: ''
+  },
+  {
+    id: '2-3',
+    title: 'Re: Understanding Supervised Learning',
+    content: 'Linear regression, logistic regression, decision trees, and neural networks are all examples of supervised learning algorithms.',
+    author: 'Emma Chen',
+    authorEmail: 'emma.chen@university.edu',
+    createdAt: '2024-09-20T12:15:00Z',
+    updatedAt: '2024-09-20T12:15:00Z',
+    priority: 'low',
+    type: 'lecture',
+    sentiment: 'positive',
+    level: 'reply',
+    parentId: '2',
+    parentTitle: 'Understanding Supervised Learning',
+    link: 'https://canvas.university.edu/courses/123/discussion_topics/1#entry-2-3',
+    replyCount: 0,
+    suggestedReply: ''
+  },
+  {
     id: '3',
     title: 'Data Structures Assignment Discussion',
     content: 'Regarding the binary tree traversal assignment, are any students facing difficulties? We can discuss together.',
@@ -49,7 +103,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'positive',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/124/discussion_topics/3',
-    replyCount: 8,
+    replyCount: 1,
     suggestedReply: 'I suggest understanding binary tree traversal from a recursive perspective.'
   },
   {
@@ -71,6 +125,42 @@ export const mockDiscussionData: DiscussionItem[] = [
     suggestedReply: 'Try drawing a diagram to understand the recursive process: visit root first, then recursively traverse left and right subtrees.'
   },
   {
+    id: '4-1',
+    title: 'Re: Preorder Traversal Implementation',
+    content: 'I can help! The key is to process the node before its children. Here\'s a simple recursive approach: process current node, then recursively call on left subtree, then right subtree.',
+    author: 'TA Mike Wilson',
+    authorEmail: 'mike.wilson@university.edu',
+    createdAt: '2024-09-19T15:30:00Z',
+    updatedAt: '2024-09-19T15:30:00Z',
+    priority: 'medium',
+    type: 'assignment',
+    sentiment: 'positive',
+    level: 'reply',
+    parentId: '4',
+    parentTitle: 'Preorder Traversal Implementation',
+    link: 'https://canvas.university.edu/courses/124/discussion_topics/3#entry-4-1',
+    replyCount: 0,
+    suggestedReply: ''
+  },
+  {
+    id: '4-2',
+    title: 'Re: Preorder Traversal Implementation',
+    content: 'Thank you! That makes sense. I was overcomplicating it. The recursive structure is much clearer now.',
+    author: 'Alex Rodriguez',
+    authorEmail: 'alex.rodriguez@university.edu',
+    createdAt: '2024-09-19T16:00:00Z',
+    updatedAt: '2024-09-19T16:00:00Z',
+    priority: 'low',
+    type: 'assignment',
+    sentiment: 'positive',
+    level: 'reply',
+    parentId: '4',
+    parentTitle: 'Preorder Traversal Implementation',
+    link: 'https://canvas.university.edu/courses/124/discussion_topics/3#entry-4-2',
+    replyCount: 0,
+    suggestedReply: ''
+  },
+  {
     id: '5',
     title: 'Python Workshop Feedback',
     content: 'Today\'s Python workshop was very comprehensive, especially the data analysis section.',
@@ -83,7 +173,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'positive',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/125/discussion_topics/5',
-    replyCount: 12,
+    replyCount: 1,
     suggestedReply: 'Great to hear your positive feedback! Feel free to continue the discussion with any specific questions.'
   },
   {
@@ -105,6 +195,24 @@ export const mockDiscussionData: DiscussionItem[] = [
     suggestedReply: 'I recommend practicing with basic operations first, starting with simple data processing tasks.'
   },
   {
+    id: '6-1',
+    title: 'Re: About Using Pandas Library',
+    content: 'I felt the same way initially! But once you get used to it, pandas becomes very intuitive. Start with basic operations like reading CSV files and selecting columns.',
+    author: 'Sarah Kim',
+    authorEmail: 'sarah.kim@university.edu',
+    createdAt: '2024-09-18T18:00:00Z',
+    updatedAt: '2024-09-18T18:00:00Z',
+    priority: 'low',
+    type: 'workshop',
+    sentiment: 'positive',
+    level: 'reply',
+    parentId: '6',
+    parentTitle: 'About Using Pandas Library',
+    link: 'https://canvas.university.edu/courses/125/discussion_topics/5#entry-6-1',
+    replyCount: 0,
+    suggestedReply: ''
+  },
+  {
     id: '7',
     title: 'Algorithm Complexity Analysis',
     content: 'Could you help me better understand the concepts of time complexity and space complexity?',
@@ -117,7 +225,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'neutral',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/7',
-    replyCount: 6,
+    replyCount: 1,
     suggestedReply: 'You can understand this through concrete algorithm examples, such as complexity analysis of sorting algorithms.'
   },
   {
@@ -151,7 +259,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'positive',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/126/discussion_topics/9',
-    replyCount: 4,
+    replyCount: 0,
     suggestedReply: 'Please review basic HTML and CSS concepts. We\'ll start with DOM manipulation examples.'
   },
   {
@@ -167,7 +275,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     sentiment: 'negative',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/127/discussion_topics/10',
-    replyCount: 7,
+    replyCount: 0,
     suggestedReply: 'Start by identifying functional dependencies, then apply the normalization forms step by step.'
   }
 ];

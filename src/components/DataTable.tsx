@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   Eye,
   Calendar,
@@ -9,6 +10,7 @@ import {
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
+  ChevronRight,
 } from "lucide-react";
 import { DiscussionItem } from "@/types";
 import Tooltip from "./Tooltip";
@@ -16,6 +18,8 @@ import Tooltip from "./Tooltip";
 interface DataTableProps {
   items: DiscussionItem[];
   onViewDetail: (item: DiscussionItem) => void;
+  currentLevel?: "topic" | "post" | "reply";
+  topicId?: string;
 }
 
 type SortField =
@@ -28,7 +32,12 @@ type SortField =
   | "sentiment";
 type SortDirection = "asc" | "desc";
 
-const DataTable: React.FC<DataTableProps> = ({ items, onViewDetail }) => {
+const DataTable: React.FC<DataTableProps> = ({
+  items,
+  onViewDetail,
+  currentLevel = "topic",
+  topicId,
+}) => {
   const [sortField, setSortField] = useState<SortField>("createdAt");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
@@ -334,14 +343,36 @@ const DataTable: React.FC<DataTableProps> = ({ items, onViewDetail }) => {
 
                 {/* Actions */}
                 <td className="px-4 py-4 align-middle text-center">
-                  <button
-                    onClick={() => onViewDetail(item)}
-                    className="btn btn-primary btn-sm px-3 py-1.5 text-xs hover:shadow-md transition-all"
-                    title="View Details"
-                  >
-                    <Eye className="w-3 h-3 lg:mr-1" />
-                    <span className="hidden lg:inline">Details</span>
-                  </button>
+                  <div className="flex flex-col items-center justify-center gap-1.5">
+                    <button
+                      onClick={() => onViewDetail(item)}
+                      className="btn btn-primary btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center"
+                      title="View Details"
+                    >
+                      <Eye className="w-3 h-3 mr-1" />
+                      <span>Details</span>
+                    </button>
+                    {currentLevel === "topic" && (
+                      <Link
+                        href={`/table/${item.id}`}
+                        className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
+                        title="Go to Next Level"
+                      >
+                        <ChevronRight className="w-3 h-3 mr-1" />
+                        <span>Next</span>
+                      </Link>
+                    )}
+                    {currentLevel === "post" && topicId && (
+                      <Link
+                        href={`/table/${topicId}/${item.id}`}
+                        className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
+                        title="Go to Next Level"
+                      >
+                        <ChevronRight className="w-3 h-3 mr-1" />
+                        <span>Next</span>
+                      </Link>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}

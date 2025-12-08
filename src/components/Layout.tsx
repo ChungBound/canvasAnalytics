@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BarChart3, Settings, Menu, X } from "lucide-react";
+import { Home, BarChart3, Settings, Menu, X, Table } from "lucide-react";
 import { useState } from "react";
 
 interface LayoutProps {
@@ -16,6 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navItems = [
     { href: "/report", label: "Reports", icon: BarChart3 },
+    { href: "/table", label: "Table", icon: Table },
     { href: "/config", label: "Configuration", icon: Settings },
   ];
 
@@ -46,7 +47,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-2">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href === "/table" && pathname?.startsWith("/table"));
                 const Icon = item.icon;
 
                 return (
@@ -84,7 +87,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="md:hidden py-4 border-t border-white/20 dark:border-gray-700/50">
               <nav className="flex flex-col space-y-2">
                 {navItems.map((item) => {
-                  const isActive = pathname === item.href;
+                  const isActive =
+                    pathname === item.href ||
+                    (item.href === "/table" && pathname?.startsWith("/table"));
                   const Icon = item.icon;
 
                   return (

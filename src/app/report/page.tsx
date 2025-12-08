@@ -1,101 +1,14 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React from "react";
+import Link from "next/link";
 import Layout from "@/components/Layout";
 import StatsCards from "@/components/StatsCards";
 import Charts from "@/components/Charts";
-import SearchFilter from "@/components/SearchFilter";
-import DataTable from "@/components/DataTable";
-import DetailModal from "@/components/DetailModal";
-import {
-  mockDiscussionData,
-  getDashboardStats,
-  getChartData,
-} from "@/data/mockData";
-import { DiscussionItem, FilterOptions, SortOptions } from "@/types";
+import { getDashboardStats, getChartData } from "@/data/mockData";
+import { Table } from "lucide-react";
 
 const ReportPage: React.FC = () => {
-  const [selectedItem, setSelectedItem] = useState<DiscussionItem | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filters, setFilters] = useState<FilterOptions>({});
-  const [sort, setSort] = useState<SortOptions>({
-    field: "createdAt",
-    order: "desc",
-  });
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // 过滤和排序数据
-  const filteredAndSortedData = useMemo(() => {
-    let result = [...mockDiscussionData];
-
-    // 应用搜索
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      result = result.filter(
-        (item) =>
-          item.id.toLowerCase().includes(term) ||
-          item.title.toLowerCase().includes(term) ||
-          item.content.toLowerCase().includes(term) ||
-          item.author.toLowerCase().includes(term)
-      );
-    }
-
-    // 应用筛选
-    if (filters.priority) {
-      result = result.filter((item) => item.priority === filters.priority);
-    }
-    if (filters.type) {
-      result = result.filter((item) => item.type === filters.type);
-    }
-    if (filters.sentiment) {
-      result = result.filter((item) => item.sentiment === filters.sentiment);
-    }
-    if (filters.level) {
-      result = result.filter((item) => item.level === filters.level);
-    }
-    if (filters.author) {
-      result = result.filter((item) =>
-        item.author.toLowerCase().includes(filters.author!.toLowerCase())
-      );
-    }
-    if (filters.id) {
-      result = result.filter((item) =>
-        item.id.toLowerCase().includes(filters.id!.toLowerCase())
-      );
-    }
-
-    // 应用排序
-    result.sort((a, b) => {
-      let aValue, bValue;
-
-      if (sort.field === "createdAt") {
-        aValue = new Date(a.createdAt).getTime();
-        bValue = new Date(b.createdAt).getTime();
-      } else {
-        aValue = a.replyCount;
-        bValue = b.replyCount;
-      }
-
-      if (sort.order === "asc") {
-        return aValue - bValue;
-      } else {
-        return bValue - aValue;
-      }
-    });
-
-    return result;
-  }, [filters, sort, searchTerm]);
-
-  const handleViewDetail = (item: DiscussionItem) => {
-    setSelectedItem(item);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedItem(null);
-  };
-
   const stats = getDashboardStats();
   const chartData = getChartData();
 
@@ -118,25 +31,29 @@ const ReportPage: React.FC = () => {
       {/* Charts */}
       <Charts data={chartData} />
 
-      {/* Search and Filter */}
-      <SearchFilter
-        onFilterChange={setFilters}
-        onSortChange={setSort}
-        onSearch={setSearchTerm}
-      />
-
-      {/* Data Table */}
-      <DataTable
-        items={filteredAndSortedData}
-        onViewDetail={handleViewDetail}
-      />
-
-      {/* Detail Modal */}
-      <DetailModal
-        item={selectedItem}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-      />
+      {/* Link to Table Page */}
+      <div className="card p-6 text-center">
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+            <Table className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              View Detailed Data Table
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Browse and filter discussion data, support viewing by level (Topic, Post, Reply)
+            </p>
+            <Link
+              href="/table"
+              className="btn btn-primary inline-flex items-center space-x-2"
+            >
+              <Table className="w-4 h-4" />
+              <span>Go to Data Table</span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 };
