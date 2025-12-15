@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Layout from "@/components/Layout";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import StatsCards from "@/components/StatsCards";
 import Charts from "@/components/Charts";
 import { getDashboardStats, getChartData } from "@/data/mockData";
@@ -13,7 +14,8 @@ const ReportPage: React.FC = () => {
   const chartData = getChartData();
 
   return (
-    <Layout>
+    <ProtectedRoute>
+      <Layout>
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -54,7 +56,8 @@ const ReportPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </Layout>
+      </Layout>
+    </ProtectedRoute>
   );
 };
 

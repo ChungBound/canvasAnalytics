@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import Layout from "@/components/Layout";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import SearchFilter from "@/components/SearchFilter";
 import DataTable from "@/components/DataTable";
 import DetailModal from "@/components/DetailModal";
@@ -111,7 +112,8 @@ const PostTablePage: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <ProtectedRoute>
+      <Layout>
       {/* Page Header */}
       <div className="mb-8">
         <div className="flex items-center gap-4 mb-4">
@@ -162,7 +164,8 @@ const PostTablePage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />
-    </Layout>
+      </Layout>
+    </ProtectedRoute>
   );
 };
 

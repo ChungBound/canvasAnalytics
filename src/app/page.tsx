@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Layout from "@/components/Layout";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import {
   BarChart3,
   Settings,
@@ -61,7 +62,8 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <Layout>
+    <ProtectedRoute>
+      <Layout>
       {/* Hero Section */}
       <div className="text-center mb-12">
         <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-6">
@@ -178,7 +180,8 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
-    </Layout>
+      </Layout>
+    </ProtectedRoute>
   );
 };
 
