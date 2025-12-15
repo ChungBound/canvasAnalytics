@@ -51,3 +51,27 @@ export interface SortOptions {
   field: 'createdAt' | 'replyCount';
   order: 'asc' | 'desc';
 }
+
+export interface LoginAccount {
+  id: string;
+  username: string;
+  password: string;
+  email: string;
+  role: 'admin' | 'user';
+  createdAt: string;
+}
+
+export interface EmailNotification {
+  id: string;
+  loginAccountId: string;
+  email: string;
+  enabled: boolean;
+  createdAt: string;
+}
+
+export interface AuthUser {
+  id: string;
+  username: string;
+  email: string;
+  role: 'admin' | 'user';
+}

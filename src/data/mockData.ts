@@ -1,4 +1,4 @@
-import { DiscussionItem, Admin, DashboardStats, ChartData } from '@/types';
+import { DiscussionItem, Admin, DashboardStats, ChartData, LoginAccount, EmailNotification } from '@/types';
 
 // Mock discussion data
 export const mockDiscussionData: DiscussionItem[] = [
@@ -305,6 +305,59 @@ export const mockAdminData: Admin[] = [
     name: 'Dr. Robert Chen',
     email: 'robert.chen@university.edu',
     createdAt: '2024-04-05T09:20:00Z'
+  }
+];
+
+// Mock login accounts data
+export const mockLoginAccounts: LoginAccount[] = [
+  {
+    id: '1',
+    username: 'admin',
+    password: 'password123',
+    email: 'admin@university.edu',
+    role: 'admin',
+    createdAt: '2024-01-15T08:00:00Z'
+  },
+  {
+    id: '2',
+    username: 'user1',
+    password: 'password123',
+    email: 'user1@university.edu',
+    role: 'user',
+    createdAt: '2024-02-20T10:30:00Z'
+  },
+  {
+    id: '3',
+    username: 'user2',
+    password: 'password123',
+    email: 'user2@university.edu',
+    role: 'user',
+    createdAt: '2024-03-10T14:15:00Z'
+  }
+];
+
+// Mock email notifications data
+export const mockEmailNotifications: EmailNotification[] = [
+  {
+    id: 'notif-1',
+    loginAccountId: '1',
+    email: 'admin@university.edu',
+    enabled: true,
+    createdAt: '2024-01-15T08:00:00Z'
+  },
+  {
+    id: 'notif-2',
+    loginAccountId: '2',
+    email: 'user1@university.edu',
+    enabled: true,
+    createdAt: '2024-02-20T10:30:00Z'
+  },
+  {
+    id: 'notif-3',
+    loginAccountId: '3',
+    email: 'user2@university.edu',
+    enabled: true,
+    createdAt: '2024-03-10T14:15:00Z'
   }
 ];
 
