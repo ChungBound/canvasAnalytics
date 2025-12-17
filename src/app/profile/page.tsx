@@ -25,7 +25,8 @@ import { LoginAccount, EmailNotification } from "@/types";
 const ProfilePage: React.FC = () => {
   const { user, refreshUser } = useAuth();
   const [account, setAccount] = useState<LoginAccount | null>(null);
-  const [emailNotification, setEmailNotification] = useState<EmailNotification | null>(null);
+  const [emailNotification, setEmailNotification] =
+    useState<EmailNotification | null>(null);
   const [loading, setLoading] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
   const [togglingEmail, setTogglingEmail] = useState(false);
@@ -36,7 +37,7 @@ const ProfilePage: React.FC = () => {
 
   const loadUserData = async () => {
     if (!user) return;
-    
+
     setLoading(true);
     try {
       const accountData = await mockGetCurrentUser(user.id);
@@ -100,8 +101,6 @@ const ProfilePage: React.FC = () => {
   return (
     <ProtectedRoute>
       <Layout>
-        <LoadingOverlay isLoading={loading} />
-        
         {/* Page Header - Always render to maintain layout */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -113,7 +112,11 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Profile Information Card - Always render to maintain layout */}
-        <div className={`card p-6 mb-8 ${loading && !account ? 'opacity-50 pointer-events-none' : ''}`}>
+        <div
+          className={`card p-6 mb-8 ${
+            loading && !account ? "opacity-50 pointer-events-none" : ""
+          }`}
+        >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               Account Information
@@ -169,7 +172,11 @@ const ProfilePage: React.FC = () => {
                     <div className="flex items-center space-x-2">
                       <Calendar className="w-4 h-4 text-gray-400" />
                       <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {loading && !account ? "..." : account ? formatDate(account.createdAt) : "—"}
+                        {loading && !account
+                          ? "..."
+                          : account
+                          ? formatDate(account.createdAt)
+                          : "—"}
                       </p>
                     </div>
                   </div>
@@ -180,7 +187,11 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Email Notification Settings - Always render to maintain layout */}
-        <div className={`card p-6 ${loading && !account ? 'opacity-50 pointer-events-none' : ''}`}>
+        <div
+          className={`card p-6 ${
+            loading && !account ? "opacity-50 pointer-events-none" : ""
+          }`}
+        >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Email Notification Settings
           </h2>
@@ -196,25 +207,33 @@ const ProfilePage: React.FC = () => {
                     Email Notifications
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {loading && !account ? "..." : emailNotification?.email || account?.email || "—"}
+                    {loading && !account
+                      ? "..."
+                      : emailNotification?.email || account?.email || "—"}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {loading && !account 
-                      ? "Loading..." 
+                    {loading && !account
+                      ? "Loading..."
                       : emailNotification?.enabled
-                        ? "You will receive email notifications"
-                        : "Email notifications are disabled"}
+                      ? "You will receive email notifications"
+                      : "Email notifications are disabled"}
                   </p>
                 </div>
               </div>
               <button
                 onClick={handleToggleEmail}
-                disabled={togglingEmail || !emailNotification || loading || !account}
+                disabled={
+                  togglingEmail || !emailNotification || loading || !account
+                }
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                   emailNotification?.enabled
                     ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                     : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-                } ${togglingEmail || loading || !account ? "opacity-50 cursor-not-allowed" : "hover:opacity-80"}`}
+                } ${
+                  togglingEmail || loading || !account
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:opacity-80"
+                }`}
               >
                 {emailNotification?.enabled ? (
                   <ToggleRight className="w-6 h-6" />
@@ -247,10 +266,10 @@ const ProfilePage: React.FC = () => {
             account={account}
           />
         )}
+        <LoadingOverlay isLoading={loading} />
       </Layout>
     </ProtectedRoute>
   );
 };
 
 export default ProfilePage;
-
