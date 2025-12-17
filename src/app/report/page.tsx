@@ -1,61 +1,216 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useState, useMemo } from "react";
 import Layout from "@/components/Layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import StatsCards from "@/components/StatsCards";
 import Charts from "@/components/Charts";
-import { getDashboardStats, getChartData } from "@/data/mockData";
-import { Table } from "lucide-react";
+import SearchFilter from "@/components/SearchFilter";
+import DataTable from "@/components/DataTable";
+import DetailModal from "@/components/DetailModal";
+import LoadingOverlay from "@/components/LoadingOverlay";
+import {
+  getDashboardStats,
+  getChartData,
+  mockDiscussionData,
+} from "@/data/mockData";
+import { DiscussionItem, FilterOptions, SortOptions } from "@/types";
 
 const ReportPage: React.FC = () => {
   const stats = getDashboardStats();
   const chartData = getChartData();
 
+  const [selectedItem, setSelectedItem] = useState<DiscussionItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filters, setFilters] = useState<FilterOptions>({});
+  const [sort, setSort] = useState<SortOptions>({
+    field: "createdAt",
+    order: "desc",
+  });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Filter and sort data - use all data, not limited by level
+  const filteredAndSortedData = useMemo(() => {
+    let result = [...mockDiscussionData];
+
+    // Apply search
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter(
+        (item) =>
+          item.id.toLowerCase().includes(term) ||
+          item.title.toLowerCase().includes(term) ||
+          item.content.toLowerCase().includes(term) ||
+          item.author.toLowerCase().includes(term)
+      );
+    }
+
+    // Apply filters (联查 - all filters combined)
+    if (filters.priority) {
+      result = result.filter((item) => item.priority === filters.priority);
+    }
+    if (filters.type) {
+      result = result.filter((item) => item.type === filters.type);
+    }
+    if (filters.sentiment) {
+      result = result.filter((item) => item.sentiment === filters.sentiment);
+    }
+    if (filters.level) {
+      result = result.filter((item) => item.level === filters.level);
+    }
+    if (filters.author) {
+      result = result.filter((item) =>
+        item.author.toLowerCase().includes(filters.author!.toLowerCase())
+      );
+    }
+    if (filters.id) {
+      result = result.filter((item) =>
+        item.id.toLowerCase().includes(filters.id!.toLowerCase())
+      );
+    }
+
+    // Apply sorting
+    result.sort((a, b) => {
+      let aValue, bValue;
+
+      if (sort.field === "createdAt") {
+        aValue = new Date(a.createdAt).getTime();
+        bValue = new Date(b.createdAt).getTime();
+      } else {
+        aValue = a.replyCount;
+        bValue = b.replyCount;
+      }
+
+      if (sort.order === "asc") {
+        return aValue - bValue;
+      } else {
+        return bValue - aValue;
+      }
+    });
+
+    return result;
+  }, [filters, sort, searchTerm]);
+
+  const handleViewDetail = (item: DiscussionItem) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedItem(null);
+  };
+
+  // Simulate API call
+  const simulateApiCall = async () => {
+    setIsLoading(true);
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setIsLoading(false);
+  };
+
+  // Handle chart clicks (一级筛选 - clear other filters, only keep current filter)
+  const handlePriorityClick = async (priority: string) => {
+    setIsLoading(true);
+    // Simulate API call
+    await simulateApiCall();
+    setFilters({
+      priority: priority as "low" | "medium" | "high",
+    });
+    setSearchTerm("");
+  };
+
+  const handleTypeClick = async (type: string) => {
+    setIsLoading(true);
+    // Simulate API call
+    await simulateApiCall();
+    setFilters({
+      type: type as "lecture" | "workshop" | "assignment",
+    });
+    setSearchTerm("");
+  };
+
+  const handleSentimentClick = async (sentiment: string) => {
+    setIsLoading(true);
+    // Simulate API call
+    await simulateApiCall();
+    setFilters({
+      sentiment: sentiment as
+        | "ACADEMIC_DESPERATION"
+        | "PRODUCTIVE_STRUGGLE"
+        | "CONFUSION"
+        | "TECHNOSTRESS"
+        | "BOREDOM"
+        | "HOSTILITY"
+        | "EPISTEMIC_CURIOSITY",
+    });
+    setSearchTerm("");
+  };
+
+  // Handle card clicks (level filter - clear other filters)
+  const handleCardClick = async (level: "topic" | "post" | "reply") => {
+    setIsLoading(true);
+    // Simulate API call
+    await simulateApiCall();
+    setFilters({ level });
+    setSearchTerm("");
+  };
+
   return (
     <ProtectedRoute>
       <Layout>
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Canvas Discussion Analytics
-        </h1>
-        <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-          Comprehensive analysis and reporting of university Canvas discussion
-          data
-        </p>
-      </div>
+        <LoadingOverlay isLoading={isLoading} text="Loading data..." />
 
-      {/* Statistics Cards */}
-      <StatsCards stats={stats} />
-
-      {/* Charts */}
-      <Charts data={chartData} />
-
-      {/* Link to Table Page */}
-      <div className="card p-6 text-center">
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-            <Table className="w-8 h-8 text-white" />
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              View Detailed Data Table
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Browse and filter discussion data, support viewing by level (Topic, Post, Reply)
-            </p>
-            <Link
-              href="/table"
-              className="btn btn-primary inline-flex items-center space-x-2"
-            >
-              <Table className="w-4 h-4" />
-              <span>Go to Data Table</span>
-            </Link>
-          </div>
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Canvas Discussion Analytics
+          </h1>
+          <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
+            Comprehensive analysis and reporting of university Canvas discussion
+            data
+          </p>
         </div>
-      </div>
+
+        {/* Statistics Cards */}
+        <StatsCards stats={stats} onCardClick={handleCardClick} />
+
+        {/* Charts */}
+        <Charts
+          data={chartData}
+          onPriorityClick={handlePriorityClick}
+          onTypeClick={handleTypeClick}
+          onSentimentClick={handleSentimentClick}
+        />
+
+        {/* Search and Filter */}
+        <div className="mt-8">
+          <SearchFilter
+            filters={filters}
+            sort={sort}
+            searchTerm={searchTerm}
+            onFilterChange={setFilters}
+            onSortChange={setSort}
+            onSearch={setSearchTerm}
+          />
+        </div>
+
+        {/* Data Table */}
+        <div className="mt-6">
+          <DataTable
+            items={filteredAndSortedData}
+            onViewDetail={handleViewDetail}
+            currentLevel={undefined}
+          />
+        </div>
+
+        {/* Detail Modal */}
+        <DetailModal
+          item={selectedItem}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
       </Layout>
     </ProtectedRoute>
   );
