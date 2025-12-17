@@ -219,6 +219,7 @@ body {
 /* Modal overlay */
 .modal-overlay {
   @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+  margin-top: 0 !important;
   animation: fadeIn 0.2s ease-out;
 }
 
