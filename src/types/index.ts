@@ -8,7 +8,7 @@ export interface DiscussionItem {
   updatedAt: string;
   priority: 'low' | 'medium' | 'high';
   type: 'lecture' | 'workshop' | 'assignment';
-  sentiment: 'positive' | 'negative' | 'neutral';
+  sentiment: 'ACADEMIC_DESPERATION' | 'PRODUCTIVE_STRUGGLE' | 'CONFUSION' | 'TECHNOSTRESS' | 'BOREDOM' | 'HOSTILITY' | 'EPISTEMIC_CURIOSITY';
   level: 'topic' | 'post' | 'reply';
   parentId?: string;
   parentTitle?: string;
@@ -39,7 +39,7 @@ export interface ChartData {
 export interface FilterOptions {
   priority?: 'low' | 'medium' | 'high';
   type?: 'lecture' | 'workshop' | 'assignment';
-  sentiment?: 'positive' | 'negative' | 'neutral';
+  sentiment?: 'ACADEMIC_DESPERATION' | 'PRODUCTIVE_STRUGGLE' | 'CONFUSION' | 'TECHNOSTRESS' | 'BOREDOM' | 'HOSTILITY' | 'EPISTEMIC_CURIOSITY';
   level?: 'topic' | 'post' | 'reply';
   author?: string;
   id?: string;

@@ -12,7 +12,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-20T10:30:00Z',
     priority: 'high',
     type: 'lecture',
-    sentiment: 'neutral',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/1',
     replyCount: 1,
@@ -28,7 +28,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-20T11:15:00Z',
     priority: 'medium',
     type: 'lecture',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'post',
     parentId: '1',
     parentTitle: 'Machine Learning Fundamentals Discussion',
@@ -46,7 +46,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-20T11:30:00Z',
     priority: 'medium',
     type: 'lecture',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'reply',
     parentId: '2',
     parentTitle: 'Understanding Supervised Learning',
@@ -64,7 +64,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-20T12:00:00Z',
     priority: 'low',
     type: 'lecture',
-    sentiment: 'neutral',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'reply',
     parentId: '2',
     parentTitle: 'Understanding Supervised Learning',
@@ -82,7 +82,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-20T12:15:00Z',
     priority: 'low',
     type: 'lecture',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'reply',
     parentId: '2',
     parentTitle: 'Understanding Supervised Learning',
@@ -100,7 +100,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-19T14:20:00Z',
     priority: 'high',
     type: 'assignment',
-    sentiment: 'positive',
+    sentiment: 'PRODUCTIVE_STRUGGLE',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/124/discussion_topics/3',
     replyCount: 1,
@@ -116,7 +116,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-19T15:10:00Z',
     priority: 'medium',
     type: 'assignment',
-    sentiment: 'negative',
+    sentiment: 'PRODUCTIVE_STRUGGLE',
     level: 'post',
     parentId: '3',
     parentTitle: 'Data Structures Assignment Discussion',
@@ -134,7 +134,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-19T15:30:00Z',
     priority: 'medium',
     type: 'assignment',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'reply',
     parentId: '4',
     parentTitle: 'Preorder Traversal Implementation',
@@ -152,7 +152,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-19T16:00:00Z',
     priority: 'low',
     type: 'assignment',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'reply',
     parentId: '4',
     parentTitle: 'Preorder Traversal Implementation',
@@ -170,7 +170,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-18T16:45:00Z',
     priority: 'low',
     type: 'workshop',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/125/discussion_topics/5',
     replyCount: 1,
@@ -186,7 +186,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-18T17:30:00Z',
     priority: 'medium',
     type: 'workshop',
-    sentiment: 'neutral',
+    sentiment: 'CONFUSION',
     level: 'post',
     parentId: '5',
     parentTitle: 'Python Workshop Feedback',
@@ -204,7 +204,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-18T18:00:00Z',
     priority: 'low',
     type: 'workshop',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'reply',
     parentId: '6',
     parentTitle: 'About Using Pandas Library',
@@ -222,7 +222,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-17T09:15:00Z',
     priority: 'high',
     type: 'lecture',
-    sentiment: 'neutral',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/123/discussion_topics/7',
     replyCount: 1,
@@ -238,7 +238,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-17T10:45:00Z',
     priority: 'medium',
     type: 'lecture',
-    sentiment: 'negative',
+    sentiment: 'CONFUSION',
     level: 'post',
     parentId: '7',
     parentTitle: 'Algorithm Complexity Analysis',
@@ -256,7 +256,7 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-16T13:20:00Z',
     priority: 'low',
     type: 'workshop',
-    sentiment: 'positive',
+    sentiment: 'EPISTEMIC_CURIOSITY',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/126/discussion_topics/9',
     replyCount: 0,
@@ -272,11 +272,79 @@ export const mockDiscussionData: DiscussionItem[] = [
     updatedAt: '2024-09-15T11:30:00Z',
     priority: 'high',
     type: 'assignment',
-    sentiment: 'negative',
+    sentiment: 'PRODUCTIVE_STRUGGLE',
     level: 'topic',
     link: 'https://canvas.university.edu/courses/127/discussion_topics/10',
     replyCount: 0,
     suggestedReply: 'Start by identifying functional dependencies, then apply the normalization forms step by step.'
+  },
+  {
+    id: '11',
+    title: 'URGENT: I will fail this course!',
+    content: 'I am panicking! I cannot understand anything and the exam is next week. If I fail this course, I cannot graduate! Please help me immediately!',
+    author: 'Student X',
+    authorEmail: 'student.x@university.edu',
+    createdAt: '2024-09-14T20:00:00Z',
+    updatedAt: '2024-09-14T20:00:00Z',
+    priority: 'high',
+    type: 'assignment',
+    sentiment: 'ACADEMIC_DESPERATION',
+    level: 'topic',
+    link: 'https://canvas.university.edu/courses/128/discussion_topics/11',
+    replyCount: 1,
+    suggestedReply: 'This requires immediate intervention. Please contact the student directly and provide academic support resources.'
+  },
+  {
+    id: '12',
+    title: 'Canvas keeps crashing!',
+    content: 'I am so frustrated! Canvas platform keeps crashing when I try to submit my assignment. This is the third time today. The website is completely broken!',
+    author: 'Student Y',
+    authorEmail: 'student.y@university.edu',
+    createdAt: '2024-09-13T15:30:00Z',
+    updatedAt: '2024-09-13T15:30:00Z',
+    priority: 'medium',
+    type: 'assignment',
+    sentiment: 'TECHNOSTRESS',
+    level: 'post',
+    parentId: '11',
+    parentTitle: 'URGENT: I will fail this course!',
+    link: 'https://canvas.university.edu/courses/128/discussion_topics/11#entry-12',
+    replyCount: 0,
+    suggestedReply: 'Please contact IT support for technical issues with Canvas platform.'
+  },
+  {
+    id: '13',
+    title: 'This course is so boring',
+    content: 'I don\'t see the point of these assignments. They are meaningless and don\'t help me learn anything useful. I\'m just going through the motions.',
+    author: 'Student Z',
+    authorEmail: 'student.z@university.edu',
+    createdAt: '2024-09-12T10:15:00Z',
+    updatedAt: '2024-09-12T10:15:00Z',
+    priority: 'low',
+    type: 'lecture',
+    sentiment: 'BOREDOM',
+    level: 'topic',
+    link: 'https://canvas.university.edu/courses/129/discussion_topics/13',
+    replyCount: 0,
+    suggestedReply: 'This indicates student disengagement. Consider reaching out to understand their learning goals.'
+  },
+  {
+    id: '14',
+    title: 'The professor is terrible',
+    content: 'This professor doesn\'t know how to teach. The lectures are useless and the assignments are unfair. This is a waste of my time and money.',
+    author: 'Student W',
+    authorEmail: 'student.w@university.edu',
+    createdAt: '2024-09-11T14:20:00Z',
+    updatedAt: '2024-09-11T14:20:00Z',
+    priority: 'medium',
+    type: 'lecture',
+    sentiment: 'HOSTILITY',
+    level: 'post',
+    parentId: '13',
+    parentTitle: 'This course is so boring',
+    link: 'https://canvas.university.edu/courses/129/discussion_topics/13#entry-14',
+    replyCount: 0,
+    suggestedReply: 'This contains hostile language. Monitor the discussion and consider moderation.'
   }
 ];
 
@@ -388,11 +456,44 @@ export const getChartData = (): ChartData => {
     assignment: mockDiscussionData.filter(item => item.type === 'assignment').length
   };
 
-  const sentimentCount = {
-    positive: mockDiscussionData.filter(item => item.sentiment === 'positive').length,
-    negative: mockDiscussionData.filter(item => item.sentiment === 'negative').length,
-    neutral: mockDiscussionData.filter(item => item.sentiment === 'neutral').length
+  // Sentiment category mapping with colors and display names
+  const sentimentCategories = {
+    ACADEMIC_DESPERATION: { name: 'Academic Desperation', color: '#ef4444' },
+    PRODUCTIVE_STRUGGLE: { name: 'Productive Struggle', color: '#3b82f6' },
+    CONFUSION: { name: 'Confusion', color: '#f59e0b' },
+    TECHNOSTRESS: { name: 'Technostress', color: '#8b5cf6' },
+    BOREDOM: { name: 'Boredom', color: '#6b7280' },
+    HOSTILITY: { name: 'Hostility', color: '#dc2626' },
+    EPISTEMIC_CURIOSITY: { name: 'Epistemic Curiosity', color: '#10b981' }
   };
+
+  // Count sentiment occurrences
+  const sentimentCount: Record<keyof typeof sentimentCategories, number> = {
+    ACADEMIC_DESPERATION: mockDiscussionData.filter(item => item.sentiment === 'ACADEMIC_DESPERATION').length,
+    PRODUCTIVE_STRUGGLE: mockDiscussionData.filter(item => item.sentiment === 'PRODUCTIVE_STRUGGLE').length,
+    CONFUSION: mockDiscussionData.filter(item => item.sentiment === 'CONFUSION').length,
+    TECHNOSTRESS: mockDiscussionData.filter(item => item.sentiment === 'TECHNOSTRESS').length,
+    BOREDOM: mockDiscussionData.filter(item => item.sentiment === 'BOREDOM').length,
+    HOSTILITY: mockDiscussionData.filter(item => item.sentiment === 'HOSTILITY').length,
+    EPISTEMIC_CURIOSITY: mockDiscussionData.filter(item => item.sentiment === 'EPISTEMIC_CURIOSITY').length
+  };
+
+  // Sort by priority: ACADEMIC_DESPERATION > HOSTILITY > CONFUSION > BOREDOM > TECHNOSTRESS > PRODUCTIVE_STRUGGLE > EPISTEMIC_CURIOSITY
+  const sentimentOrder: Array<keyof typeof sentimentCategories> = [
+    'ACADEMIC_DESPERATION',
+    'HOSTILITY',
+    'CONFUSION',
+    'BOREDOM',
+    'TECHNOSTRESS',
+    'PRODUCTIVE_STRUGGLE',
+    'EPISTEMIC_CURIOSITY'
+  ];
+
+  const sentimentData = sentimentOrder.map(key => ({
+    value: sentimentCount[key],
+    name: sentimentCategories[key].name,
+    color: sentimentCategories[key].color
+  }));
 
   return {
     priorityData: [
@@ -405,10 +506,6 @@ export const getChartData = (): ChartData => {
       { value: typeCount.workshop, name: 'Workshop' },
       { value: typeCount.assignment, name: 'Assignment' }
     ],
-    sentimentData: [
-      { value: sentimentCount.positive, name: 'Positive', color: '#10b981' },
-      { value: sentimentCount.negative, name: 'Negative', color: '#ef4444' },
-      { value: sentimentCount.neutral, name: 'Neutral', color: '#f59e0b' }
-    ]
+    sentimentData
   };
 };
