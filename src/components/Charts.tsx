@@ -6,9 +6,45 @@ import { ChartData } from "@/types";
 
 interface ChartsProps {
   data: ChartData;
+  onPriorityClick?: (priority: string) => void;
+  onTypeClick?: (type: string) => void;
+  onSentimentClick?: (sentiment: string) => void;
 }
 
-const Charts: React.FC<ChartsProps> = ({ data }) => {
+const Charts: React.FC<ChartsProps> = ({ 
+  data, 
+  onPriorityClick, 
+  onTypeClick, 
+  onSentimentClick 
+}) => {
+  // Map priority display name to value
+  const mapPriorityNameToValue = (name: string): string => {
+    const mapping: Record<string, string> = {
+      "Low Priority": "low",
+      "Medium Priority": "medium",
+      "High Priority": "high",
+    };
+    return mapping[name] || name.toLowerCase();
+  };
+
+  // Map type display name to value
+  const mapTypeNameToValue = (name: string): string => {
+    return name.toLowerCase();
+  };
+
+  // Map sentiment display name to enum value
+  const mapSentimentNameToValue = (name: string): string => {
+    const mapping: Record<string, string> = {
+      "Academic Desperation": "ACADEMIC_DESPERATION",
+      "Productive Struggle": "PRODUCTIVE_STRUGGLE",
+      "Confusion": "CONFUSION",
+      "Technostress": "TECHNOSTRESS",
+      "Boredom": "BOREDOM",
+      "Hostility": "HOSTILITY",
+      "Epistemic Curiosity": "EPISTEMIC_CURIOSITY",
+    };
+    return mapping[name] || name;
+  };
   // Priority distribution pie chart
   const priorityOption = {
     title: {
@@ -60,6 +96,14 @@ const Charts: React.FC<ChartsProps> = ({ data }) => {
         },
       },
     ],
+  };
+
+  // Handle priority chart click
+  const handlePriorityClick = (params: any) => {
+    if (onPriorityClick && params.name) {
+      const priorityValue = mapPriorityNameToValue(params.name);
+      onPriorityClick(priorityValue);
+    }
   };
 
   // Type distribution pie chart
@@ -115,7 +159,15 @@ const Charts: React.FC<ChartsProps> = ({ data }) => {
     ],
   };
 
-  // Sentiment analysis bar chart
+  // Handle type chart click
+  const handleTypeClick = (params: any) => {
+    if (onTypeClick && params.name) {
+      const typeValue = mapTypeNameToValue(params.name);
+      onTypeClick(typeValue);
+    }
+  };
+
+  // Sentiment analysis horizontal bar chart
   const sentimentOption = {
     title: {
       text: "Sentiment Analysis",
@@ -131,6 +183,10 @@ const Charts: React.FC<ChartsProps> = ({ data }) => {
       axisPointer: {
         type: "shadow",
       },
+      formatter: (params: any) => {
+        const param = params[0];
+        return `${param.name}<br/>Count: ${param.value}`;
+      },
       backgroundColor: "rgba(255, 255, 255, 0.95)",
       borderColor: "#e5e7eb",
       borderWidth: 1,
@@ -139,28 +195,13 @@ const Charts: React.FC<ChartsProps> = ({ data }) => {
       },
     },
     grid: {
-      left: "3%",
-      right: "4%",
-      bottom: "10%",
-      top: "20%",
-      containLabel: true,
+      left: "15%",
+      right: "5%",
+      bottom: "5%",
+      top: "15%",
+      containLabel: false,
     },
     xAxis: {
-      type: "category",
-      data: data.sentimentData.map((item) => item.name),
-      axisTick: {
-        alignWithLabel: true,
-      },
-      axisLabel: {
-        color: "#6b7280",
-      },
-      axisLine: {
-        lineStyle: {
-          color: "#e5e7eb",
-        },
-      },
-    },
-    yAxis: {
       type: "value",
       axisLabel: {
         color: "#6b7280",
@@ -176,48 +217,93 @@ const Charts: React.FC<ChartsProps> = ({ data }) => {
         },
       },
     },
+    yAxis: {
+      type: "category",
+      data: data.sentimentData.map((item) => item.name),
+      axisTick: {
+        alignWithLabel: true,
+      },
+      axisLabel: {
+        color: "#6b7280",
+        fontSize: 12,
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#e5e7eb",
+        },
+      },
+    },
     series: [
       {
         name: "Count",
         type: "bar",
-        barWidth: "50%",
+        barWidth: "60%",
         data: data.sentimentData.map((item) => ({
           value: item.value,
           itemStyle: {
             color: item.color,
-            borderRadius: [4, 4, 0, 0],
+            borderRadius: [0, 4, 4, 0],
           },
         })),
+        label: {
+          show: true,
+          position: "right",
+          color: "#374151",
+          fontSize: 12,
+        },
       },
     ],
   };
 
+  // Handle sentiment chart click
+  const handleSentimentClick = (params: any) => {
+    if (onSentimentClick && params.name) {
+      const sentimentValue = mapSentimentNameToValue(params.name);
+      onSentimentClick(sentimentValue);
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Priority Distribution */}
-      <div className="card p-6">
-        <ReactECharts
-          option={priorityOption}
-          style={{ height: "400px" }}
-          theme="light"
-        />
+    <div className="space-y-6">
+      {/* Priority and Type Distribution - Two pie charts in one row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Priority Distribution */}
+        <div className="card p-6">
+          <ReactECharts
+            option={priorityOption}
+            style={{ height: "500px" }}
+            theme="light"
+            onEvents={{
+              click: handlePriorityClick,
+            }}
+            opts={{ renderer: "svg" }}
+          />
+        </div>
+
+        {/* Type Distribution */}
+        <div className="card p-6">
+          <ReactECharts
+            option={typeOption}
+            style={{ height: "500px" }}
+            theme="light"
+            onEvents={{
+              click: handleTypeClick,
+            }}
+            opts={{ renderer: "svg" }}
+          />
+        </div>
       </div>
 
-      {/* Type Distribution */}
-      <div className="card p-6">
-        <ReactECharts
-          option={typeOption}
-          style={{ height: "400px" }}
-          theme="light"
-        />
-      </div>
-
-      {/* Sentiment Analysis */}
+      {/* Sentiment Analysis - Horizontal bar chart in separate row */}
       <div className="card p-6">
         <ReactECharts
           option={sentimentOption}
-          style={{ height: "400px" }}
+          style={{ height: "500px" }}
           theme="light"
+          onEvents={{
+            click: handleSentimentClick,
+          }}
+          opts={{ renderer: "svg" }}
         />
       </div>
     </div>
