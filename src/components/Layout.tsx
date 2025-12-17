@@ -19,6 +19,8 @@ import {
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLoading } from "@/contexts/LoadingContext";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -29,6 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const { user, logout, isAdmin } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { isLoading, loadingText } = useLoading();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
@@ -268,6 +271,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      {/* Global Loading Overlay */}
+      <LoadingOverlay isLoading={isLoading} text={loadingText} />
     </div>
   );
 };
