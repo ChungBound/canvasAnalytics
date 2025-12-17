@@ -7,9 +7,9 @@ import { AuthProvider } from "@/contexts/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Canvas Discussion Analytics",
+  title: "LMS(LearningManagementSystem) EarlySense",
   description:
-    "Advanced analytics and reporting system for university Canvas discussion data",
+    "Comprehensive analysis and reporting system for university Canvas discussion data with advanced insights and visualizations",
 };
 
 export default function RootLayout({

@@ -27,7 +27,7 @@ function showNetworkInfo() {
   const addresses = getNetworkAddresses();
   const port = process.argv[2] || '3000';
   
-  console.log('\n🌐 Canvas Discussion Analytics - Available Network Addresses');
+  console.log('\n🌐 LMS EarlySense - Available Network Addresses');
   console.log('='.repeat(65));
   console.log('📱 Mobile Access URLs:');
   console.log('');

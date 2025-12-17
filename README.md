@@ -1,4 +1,4 @@
-# Canvas 讨论分析系统
+# LMS(LearningManagementSystem) EarlySense
 
 一个基于 React、Next.js 和 TypeScript 构建的前端应用，用于分析和报告大学 Canvas 讨论数据。
 

@@ -24,7 +24,7 @@ function getNetworkAddresses() {
 function displayNetworkInfo(port = 3000) {
   const addresses = getNetworkAddresses();
   
-  console.log('\n🌐 Canvas Discussion Analytics - Network Access');
+  console.log('\n🌐 LMS EarlySense - Network Access');
   console.log('=' .repeat(50));
   console.log('📱 Access from your mobile device:');
   console.log('');
@@ -43,7 +43,7 @@ function displayNetworkInfo(port = 3000) {
 }
 
 // Start Next.js dev server
-console.log('🚀 Starting Canvas Discussion Analytics...');
+console.log('🚀 Starting LMS EarlySense...');
 
 const nextProcess = spawn('npx', ['next', 'dev', '-H', '0.0.0.0'], {
   stdio: 'pipe',

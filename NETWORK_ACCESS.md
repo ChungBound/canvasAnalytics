@@ -2,7 +2,7 @@
 
 ## 🌐 Access Your App on Mobile Devices
 
-Your Canvas Discussion Analytics app is now configured to be accessible from any device on your local network!
+Your LMS(LearningManagementSystem) EarlySense app is now configured to be accessible from any device on your local network!
 
 ### 📍 Available Network Addresses:
 
@@ -60,5 +60,5 @@ If you can't access the app on your phone:
 - **Full Screen**: The app is designed to work great in mobile browsers
 - **Portrait/Landscape**: Works in both orientations
 
-Enjoy testing your beautiful Canvas Analytics app on mobile! 📊📱
+Enjoy testing your beautiful LMS EarlySense app on mobile! 📊📱
 

@@ -160,16 +160,14 @@ const ReportPage: React.FC = () => {
   return (
     <ProtectedRoute>
       <Layout>
-        <LoadingOverlay isLoading={isLoading} text="Loading data..." />
-
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Canvas Discussion Analytics
+            LMS EarlySense
           </h1>
           <p className="mt-3 text-lg text-gray-600 dark:text-gray-400">
-            Comprehensive analysis and reporting of university Canvas discussion
-            data
+            Comprehensive analysis and reporting system for university Canvas
+            discussion data with advanced insights and visualizations
           </p>
         </div>
 
@@ -211,6 +209,7 @@ const ReportPage: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
         />
+        <LoadingOverlay isLoading={isLoading} />
       </Layout>
     </ProtectedRoute>
   );
