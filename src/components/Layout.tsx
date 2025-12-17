@@ -3,7 +3,19 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Home, BarChart3, Settings, Menu, X, Table, LogOut, User, Sun, Moon, ChevronDown } from "lucide-react";
+import {
+  Home,
+  BarChart3,
+  Settings,
+  Menu,
+  X,
+  Table,
+  LogOut,
+  User,
+  Sun,
+  Moon,
+  ChevronDown,
+} from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -28,11 +40,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navItems = [
     { href: "/report", label: "Reports", icon: BarChart3 },
     { href: "/table", label: "Table", icon: Table },
-    ...(isAdmin() ? [{ href: "/config", label: "Configuration", icon: Settings }] : []),
+    ...(isAdmin()
+      ? [{ href: "/config", label: "Configuration", icon: Settings }]
+      : []),
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 flex flex-col">
       {/* Header */}
       <header className="glass border-b border-white/20 dark:border-gray-700/50 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,19 +62,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
                 <div className="hidden sm:block">
                   <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Canvas Analytics
+                    LMS EarlySense
                   </span>
                   <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">
-                    Discussion Analysis System
+                    Learning Management System
                   </p>
                 </div>
               </Link>
-              
+
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-white/50 dark:hover:bg-gray-800/50 transition-colors"
-                title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+                title={
+                  theme === "light"
+                    ? "Switch to Dark Mode"
+                    : "Switch to Light Mode"
+                }
               >
                 {theme === "light" ? (
                   <Moon className="w-5 h-5" />
@@ -93,7 +111,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   </Link>
                 );
               })}
-              
+
               {/* User Menu */}
               {user && (
                 <div className="relative ml-4 pl-4 border-l border-gray-200 dark:border-gray-700">
@@ -103,9 +121,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   >
                     <User className="w-4 h-4" />
                     <span className="font-medium">{user.username}</span>
-                    <ChevronDown className={`w-4 h-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        isUserMenuOpen ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
-                  
+
                   {/* User Dropdown Menu */}
                   {isUserMenuOpen && (
                     <>
@@ -178,7 +200,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </Link>
                   );
                 })}
-                
+
                 {/* Mobile Theme Toggle */}
                 <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700 mt-2 pt-2">
                   <button
@@ -198,7 +220,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     )}
                   </button>
                 </div>
-                
+
                 {/* Mobile User Info and Logout */}
                 {user && (
                   <>
@@ -233,9 +255,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 flex-1">
         <div className="space-y-8">{children}</div>
       </main>
+
+      {/* Footer */}
+      <footer className="mt-auto border-t border-gray-200/50 dark:border-gray-700/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+            © {new Date().getFullYear()} LMS(LearningManagementSystem)
+            EarlySense. All rights reserved.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
