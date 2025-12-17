@@ -5,27 +5,40 @@ import { Search, Filter, X, SortAsc, SortDesc } from "lucide-react";
 import { FilterOptions, SortOptions } from "@/types";
 
 interface SearchFilterProps {
+  filters?: FilterOptions;
+  sort?: SortOptions;
+  searchTerm?: string;
   onFilterChange: (filters: FilterOptions) => void;
   onSortChange: (sort: SortOptions) => void;
   onSearch: (searchTerm: string) => void;
 }
 
 const SearchFilter: React.FC<SearchFilterProps> = ({
+  filters: externalFilters,
+  sort: externalSort,
+  searchTerm: externalSearchTerm,
   onFilterChange,
   onSortChange,
   onSearch,
 }) => {
-  const [filters, setFilters] = useState<FilterOptions>({});
-  const [searchTerm, setSearchTerm] = useState("");
+  const [internalFilters, setInternalFilters] = useState<FilterOptions>({});
+  const [internalSearchTerm, setInternalSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  const [sort, setSort] = useState<SortOptions>({
+  const [internalSort, setInternalSort] = useState<SortOptions>({
     field: "createdAt",
     order: "desc",
   });
 
+  // Use external props if provided, otherwise use internal state
+  const filters = externalFilters !== undefined ? externalFilters : internalFilters;
+  const searchTerm = externalSearchTerm !== undefined ? externalSearchTerm : internalSearchTerm;
+  const sort = externalSort !== undefined ? externalSort : internalSort;
+
   const handleFilterChange = (key: keyof FilterOptions, value: string) => {
     const newFilters = { ...filters, [key]: value || undefined };
-    setFilters(newFilters);
+    if (externalFilters === undefined) {
+      setInternalFilters(newFilters);
+    }
     onFilterChange(newFilters);
   };
 
@@ -34,19 +47,28 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
     order: SortOptions["order"]
   ) => {
     const newSort = { field, order };
-    setSort(newSort);
+    if (externalSort === undefined) {
+      setInternalSort(newSort);
+    }
     onSortChange(newSort);
   };
 
   const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
+    if (externalSearchTerm === undefined) {
+      setInternalSearchTerm(value);
+    }
     onSearch(value);
   };
 
   const clearFilters = () => {
-    setFilters({});
-    onFilterChange({});
-    setSearchTerm("");
+    const emptyFilters = {};
+    if (externalFilters === undefined) {
+      setInternalFilters(emptyFilters);
+    }
+    onFilterChange(emptyFilters);
+    if (externalSearchTerm === undefined) {
+      setInternalSearchTerm("");
+    }
     onSearch("");
   };
 
@@ -191,9 +213,13 @@ const SearchFilter: React.FC<SearchFilterProps> = ({
               className="select"
             >
               <option value="">All Sentiments</option>
-              <option value="positive">Positive</option>
-              <option value="negative">Negative</option>
-              <option value="neutral">Neutral</option>
+              <option value="ACADEMIC_DESPERATION">Academic Desperation</option>
+              <option value="PRODUCTIVE_STRUGGLE">Productive Struggle</option>
+              <option value="CONFUSION">Confusion</option>
+              <option value="TECHNOSTRESS">Technostress</option>
+              <option value="BOREDOM">Boredom</option>
+              <option value="HOSTILITY">Hostility</option>
+              <option value="EPISTEMIC_CURIOSITY">Epistemic Curiosity</option>
             </select>
           </div>
 

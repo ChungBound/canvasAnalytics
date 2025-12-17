@@ -66,12 +66,20 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
-      case "positive":
-        return "badge-success";
-      case "negative":
+      case "ACADEMIC_DESPERATION":
         return "badge-danger";
-      case "neutral":
+      case "HOSTILITY":
+        return "badge-danger";
+      case "CONFUSION":
+        return "badge-warning";
+      case "BOREDOM":
         return "badge-gray";
+      case "TECHNOSTRESS":
+        return "badge-purple";
+      case "PRODUCTIVE_STRUGGLE":
+        return "badge-primary";
+      case "EPISTEMIC_CURIOSITY":
+        return "badge-success";
       default:
         return "badge-gray";
     }
@@ -105,6 +113,19 @@ const DataTable: React.FC<DataTableProps> = ({
 
   const capitalizeFirst = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  const getSentimentDisplayName = (sentiment: string) => {
+    const sentimentMap: Record<string, string> = {
+      ACADEMIC_DESPERATION: "Academic Desperation",
+      PRODUCTIVE_STRUGGLE: "Productive Struggle",
+      CONFUSION: "Confusion",
+      TECHNOSTRESS: "Technostress",
+      BOREDOM: "Boredom",
+      HOSTILITY: "Hostility",
+      EPISTEMIC_CURIOSITY: "Epistemic Curiosity",
+    };
+    return sentimentMap[sentiment] || capitalizeFirst(sentiment);
   };
 
   const handleSort = (field: SortField) => {
@@ -326,7 +347,7 @@ const DataTable: React.FC<DataTableProps> = ({
                         item.sentiment
                       )}`}
                     >
-                      {capitalizeFirst(item.sentiment)}
+                      {getSentimentDisplayName(item.sentiment)}
                     </span>
                   </div>
                 </td>
@@ -352,7 +373,36 @@ const DataTable: React.FC<DataTableProps> = ({
                       <Eye className="w-3 h-3 mr-1" />
                       <span>Details</span>
                     </button>
-                    {currentLevel === "topic" && (
+                    {/* Show Next button based on item level and current context */}
+                    {/* Case 1: Table page - topic level (currentLevel="topic" and no topicId) */}
+                    {currentLevel === "topic" &&
+                      topicId === undefined &&
+                      item.level === "topic" && (
+                        <Link
+                          href={`/table/${item.id}`}
+                          className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
+                          title="Go to Next Level"
+                        >
+                          <ChevronRight className="w-3 h-3 mr-1" />
+                          <span>Next</span>
+                        </Link>
+                      )}
+                    {/* Case 2: Table page - post level (currentLevel="post" and has topicId) */}
+                    {currentLevel === "post" &&
+                      topicId &&
+                      item.level === "post" && (
+                        <Link
+                          href={`/table/${topicId}/${item.id}`}
+                          className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
+                          title="Go to Next Level"
+                        >
+                          <ChevronRight className="w-3 h-3 mr-1" />
+                          <span>Next</span>
+                        </Link>
+                      )}
+                    {/* Case 3: Report page - use item.level (currentLevel is undefined or default "topic" but we're in report page) */}
+                    {/* For topic items in report page */}
+                    {currentLevel === undefined && item.level === "topic" && (
                       <Link
                         href={`/table/${item.id}`}
                         className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
@@ -362,16 +412,21 @@ const DataTable: React.FC<DataTableProps> = ({
                         <span>Next</span>
                       </Link>
                     )}
-                    {currentLevel === "post" && topicId && (
-                      <Link
-                        href={`/table/${topicId}/${item.id}`}
-                        className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
-                        title="Go to Next Level"
-                      >
-                        <ChevronRight className="w-3 h-3 mr-1" />
-                        <span>Next</span>
-                      </Link>
-                    )}
+                    {/* For post items in report page */}
+                    {currentLevel === undefined &&
+                      item.level === "post" &&
+                      item.parentId && (
+                        <Link
+                          href={`/table/${item.parentId}/${item.id}`}
+                          className="btn btn-sm px-2.5 py-1 text-xs hover:shadow-md transition-all whitespace-nowrap w-[75px] flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm"
+                          title="Go to Next Level"
+                        >
+                          <ChevronRight className="w-3 h-3 mr-1" />
+                          <span>Next</span>
+                        </Link>
+                      )}
+                    {/* Reply level doesn't have next button - it's the bottom level */}
+                    {/* Reply level doesn't have next button - it's the bottom level */}
                   </div>
                 </td>
               </tr>

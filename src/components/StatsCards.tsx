@@ -6,9 +6,10 @@ import { DashboardStats } from "@/types";
 
 interface StatsCardsProps {
   stats: DashboardStats;
+  onCardClick?: (level: 'topic' | 'post' | 'reply') => void;
 }
 
-const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
+const StatsCards: React.FC<StatsCardsProps> = ({ stats, onCardClick }) => {
   const cards = [
     {
       title: "Discussion Topics",
@@ -18,6 +19,7 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
       bgGradient:
         "from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/30",
       description: "Total discussion topics",
+      level: "topic" as const,
     },
     {
       title: "Posts",
@@ -27,6 +29,7 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
       bgGradient:
         "from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/30",
       description: "Total posts created",
+      level: "post" as const,
     },
     {
       title: "Replies",
@@ -36,6 +39,7 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
       bgGradient:
         "from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/30",
       description: "Total replies posted",
+      level: "reply" as const,
     },
   ];
 
@@ -46,7 +50,10 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats }) => {
         return (
           <div
             key={index}
-            className={`bg-gradient-to-br ${card.bgGradient} rounded-2xl p-6 shadow-elegant hover:shadow-elegant-lg transition-all duration-300 border border-white/50 dark:border-gray-700/50 group`}
+            onClick={() => onCardClick && onCardClick(card.level)}
+            className={`bg-gradient-to-br ${card.bgGradient} rounded-2xl p-6 shadow-elegant hover:shadow-elegant-lg transition-all duration-300 border border-white/50 dark:border-gray-700/50 group ${
+              onCardClick ? "cursor-pointer" : ""
+            }`}
           >
             <div className="flex items-center justify-between">
               <div className="flex-1">
