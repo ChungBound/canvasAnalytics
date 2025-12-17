@@ -45,7 +45,7 @@ const Charts: React.FC<ChartsProps> = ({
     };
     return mapping[name] || name;
   };
-  // Priority distribution pie chart
+  // Priority distribution vertical bar chart
   const priorityOption = {
     title: {
       text: "Priority Distribution",
@@ -57,8 +57,14 @@ const Charts: React.FC<ChartsProps> = ({
       },
     },
     tooltip: {
-      trigger: "item",
-      formatter: "{a} <br/>{b}: {c} ({d}%)",
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+      formatter: (params: any) => {
+        const param = params[0];
+        return `${param.name}<br/>Count: ${param.value}`;
+      },
       backgroundColor: "rgba(255, 255, 255, 0.95)",
       borderColor: "#e5e7eb",
       borderWidth: 1,
@@ -66,33 +72,66 @@ const Charts: React.FC<ChartsProps> = ({
         color: "#374151",
       },
     },
-    legend: {
-      orient: "horizontal",
-      bottom: "10%",
+    grid: {
+      left: "15%",
+      right: "10%",
+      bottom: "15%",
+      top: "15%",
+      containLabel: false,
+    },
+    xAxis: {
+      type: "category",
       data: data.priorityData.map((item) => item.name),
+      axisTick: {
+        alignWithLabel: true,
+      },
+      axisLabel: {
+        color: "#6b7280",
+        fontSize: 12,
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#e5e7eb",
+        },
+      },
+    },
+    yAxis: {
+      type: "value",
+      axisLabel: {
+        color: "#6b7280",
+      },
+      axisLine: {
+        lineStyle: {
+          color: "#e5e7eb",
+        },
+      },
+      splitLine: {
+        lineStyle: {
+          color: "#f3f4f6",
+        },
+      },
     },
     series: [
       {
-        name: "Priority",
-        type: "pie",
-        radius: ["30%", "60%"],
-        center: ["50%", "45%"],
-        data: data.priorityData,
-        emphasis: {
+        name: "Count",
+        type: "bar",
+        barWidth: "60%",
+        data: data.priorityData.map((item, index) => ({
+          value: item.value,
           itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
+            color: (() => {
+              // Color mapping: Low Priority (green), Medium Priority (yellow), High Priority (red)
+              const colors = ["#10b981", "#f59e0b", "#ef4444"];
+              return colors[index % colors.length];
+            })(),
+            borderRadius: [4, 4, 0, 0],
           },
-        },
-        itemStyle: {
-          borderRadius: 8,
-          borderColor: "#fff",
-          borderWidth: 2,
-          color: (params: any) => {
-            const colors = ["#ef4444", "#f59e0b", "#10b981"];
-            return colors[params.dataIndex % colors.length];
-          },
+        })),
+        label: {
+          show: true,
+          position: "top",
+          color: "#374151",
+          fontSize: 12,
         },
       },
     ],
@@ -151,7 +190,9 @@ const Charts: React.FC<ChartsProps> = ({
           borderColor: "#fff",
           borderWidth: 2,
           color: (params: any) => {
-            const colors = ["#3b82f6", "#8b5cf6", "#ec4899"];
+            // Color mapping: Lecture (blue), Workshop (purple), Assignment (teal)
+            // Using different colors from Priority to make charts visually distinct
+            const colors = ["#3b82f6", "#8b5cf6", "#14b8a6"];
             return colors[params.dataIndex % colors.length];
           },
         },
