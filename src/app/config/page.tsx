@@ -5,7 +5,7 @@ import Layout from "@/components/Layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import LoginAccountModal from "@/components/LoginAccountModal";
 import EmailNotificationModal from "@/components/EmailNotificationModal";
-import LoadingOverlay from "@/components/LoadingOverlay";
+import { useLoading } from "@/contexts/LoadingContext";
 import {
   Plus,
   Search,
@@ -32,31 +32,34 @@ import { LoginAccount, EmailNotification } from "@/types";
 type TabType = "login" | "email";
 
 const ConfigPage: React.FC = () => {
+  const { setLoading } = useLoading();
   const [activeTab, setActiveTab] = useState<TabType>("login");
-  const [loading, setLoading] = useState(true);
-  
+
   // Login Account Management State
   const [loginAccounts, setLoginAccounts] = useState<LoginAccount[]>([]);
   const [loginSearchTerm, setLoginSearchTerm] = useState("");
   const [showLoginAccountModal, setShowLoginAccountModal] = useState(false);
-  const [editingLoginAccount, setEditingLoginAccount] = useState<LoginAccount | null>(null);
-  
+  const [editingLoginAccount, setEditingLoginAccount] =
+    useState<LoginAccount | null>(null);
+
   // Email Notification Management State
-  const [emailNotifications, setEmailNotifications] = useState<EmailNotification[]>([]);
+  const [emailNotifications, setEmailNotifications] = useState<
+    EmailNotification[]
+  >([]);
   const [emailSearchTerm, setEmailSearchTerm] = useState("");
   const [showEmailModal, setShowEmailModal] = useState(false);
-  const [editingEmailNotification, setEditingEmailNotification] = useState<EmailNotification | null>(null);
-  const [togglingEmailIds, setTogglingEmailIds] = useState<Set<string>>(new Set());
+  const [editingEmailNotification, setEditingEmailNotification] =
+    useState<EmailNotification | null>(null);
+  const [togglingEmailIds, setTogglingEmailIds] = useState<Set<string>>(
+    new Set()
+  );
 
   // Load data
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       try {
-        await Promise.all([
-          loadLoginAccounts(),
-          loadEmailNotifications(),
-        ]);
+        await Promise.all([loadLoginAccounts(), loadEmailNotifications()]);
       } finally {
         setLoading(false);
       }
@@ -152,7 +155,9 @@ const ConfigPage: React.FC = () => {
 
   // Email Notification Management Functions
   const filteredEmailNotifications = emailNotifications.filter((notif) => {
-    const account = loginAccounts.find((acc) => acc.id === notif.loginAccountId);
+    const account = loginAccounts.find(
+      (acc) => acc.id === notif.loginAccountId
+    );
     return (
       notif.email.toLowerCase().includes(emailSearchTerm.toLowerCase()) ||
       account?.username.toLowerCase().includes(emailSearchTerm.toLowerCase())
@@ -161,13 +166,16 @@ const ConfigPage: React.FC = () => {
 
   const handleUpdateEmail = async (email: string) => {
     if (!editingEmailNotification) return;
-    await mockUpdateEmailNotification(editingEmailNotification.loginAccountId, email);
+    await mockUpdateEmailNotification(
+      editingEmailNotification.loginAccountId,
+      email
+    );
     await loadEmailNotifications();
   };
 
   const handleToggleEmail = async (loginAccountId: string) => {
     if (togglingEmailIds.has(loginAccountId)) return;
-    
+
     setTogglingEmailIds((prev) => new Set(prev).add(loginAccountId));
     try {
       await mockToggleEmailNotification(loginAccountId);
@@ -201,8 +209,6 @@ const ConfigPage: React.FC = () => {
   return (
     <ProtectedRoute requireAdmin>
       <Layout>
-        <LoadingOverlay isLoading={loading} />
-        
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -311,7 +317,9 @@ const ConfigPage: React.FC = () => {
                             </div>
                             <div className="flex items-center space-x-1">
                               <Calendar className="w-4 h-4" />
-                              <span>Created {formatDate(account.createdAt)}</span>
+                              <span>
+                                Created {formatDate(account.createdAt)}
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -344,7 +352,8 @@ const ConfigPage: React.FC = () => {
             <>
               <div className="mb-6">
                 <p className="text-gray-600 dark:text-gray-400">
-                  Manage email notification addresses and enable/disable notifications for each login account
+                  Manage email notification addresses and enable/disable
+                  notifications for each login account
                 </p>
               </div>
 
@@ -377,7 +386,9 @@ const ConfigPage: React.FC = () => {
                   </div>
                 ) : (
                   filteredEmailNotifications.map((notification) => {
-                    const isToggling = togglingEmailIds.has(notification.loginAccountId);
+                    const isToggling = togglingEmailIds.has(
+                      notification.loginAccountId
+                    );
                     return (
                       <div
                         key={notification.id}
@@ -398,21 +409,33 @@ const ConfigPage: React.FC = () => {
                               </div>
                               <div className="flex items-center space-x-1">
                                 <Calendar className="w-4 h-4" />
-                                <span>Created {formatDate(notification.createdAt)}</span>
+                                <span>
+                                  Created {formatDate(notification.createdAt)}
+                                </span>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
                           <button
-                            onClick={() => handleToggleEmail(notification.loginAccountId)}
+                            onClick={() =>
+                              handleToggleEmail(notification.loginAccountId)
+                            }
                             disabled={isToggling}
                             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
                               notification.enabled
                                 ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                                 : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-                            } ${isToggling ? "opacity-50 cursor-not-allowed" : "hover:opacity-80"}`}
-                            title={notification.enabled ? "Disable email notifications" : "Enable email notifications"}
+                            } ${
+                              isToggling
+                                ? "opacity-50 cursor-not-allowed"
+                                : "hover:opacity-80"
+                            }`}
+                            title={
+                              notification.enabled
+                                ? "Disable email notifications"
+                                : "Enable email notifications"
+                            }
                           >
                             {notification.enabled ? (
                               <ToggleRight className="w-5 h-5" />
@@ -450,7 +473,9 @@ const ConfigPage: React.FC = () => {
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
                 System Version
               </p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">v1.0.0</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-white">
+                v1.0.0
+              </p>
             </div>
             <div className="text-center p-4 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/30 rounded-xl">
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
@@ -475,7 +500,11 @@ const ConfigPage: React.FC = () => {
         <LoginAccountModal
           isOpen={showLoginAccountModal}
           onClose={handleCloseLoginAccountModal}
-          onSubmit={editingLoginAccount ? handleUpdateLoginAccount : handleAddLoginAccount}
+          onSubmit={
+            editingLoginAccount
+              ? handleUpdateLoginAccount
+              : handleAddLoginAccount
+          }
           account={editingLoginAccount}
         />
 

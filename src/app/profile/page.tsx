@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import UserProfileModal from "@/components/UserProfileModal";
-import LoadingOverlay from "@/components/LoadingOverlay";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLoading } from "@/contexts/LoadingContext";
 import {
   User,
   Mail,
@@ -24,10 +24,11 @@ import { LoginAccount, EmailNotification } from "@/types";
 
 const ProfilePage: React.FC = () => {
   const { user, refreshUser } = useAuth();
+  const { setLoading } = useLoading();
   const [account, setAccount] = useState<LoginAccount | null>(null);
   const [emailNotification, setEmailNotification] =
     useState<EmailNotification | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoadingLocal] = useState(true);
   const [showEditModal, setShowEditModal] = useState(false);
   const [togglingEmail, setTogglingEmail] = useState(false);
 
@@ -39,6 +40,7 @@ const ProfilePage: React.FC = () => {
     if (!user) return;
 
     setLoading(true);
+    setLoadingLocal(true);
     try {
       const accountData = await mockGetCurrentUser(user.id);
       if (accountData) {
@@ -54,6 +56,7 @@ const ProfilePage: React.FC = () => {
       console.error("Error loading user data:", error);
     } finally {
       setLoading(false);
+      setLoadingLocal(false);
     }
   };
 
@@ -266,7 +269,6 @@ const ProfilePage: React.FC = () => {
             account={account}
           />
         )}
-        <LoadingOverlay isLoading={loading} />
       </Layout>
     </ProtectedRoute>
   );

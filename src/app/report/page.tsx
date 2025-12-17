@@ -8,7 +8,7 @@ import Charts from "@/components/Charts";
 import SearchFilter from "@/components/SearchFilter";
 import DataTable from "@/components/DataTable";
 import DetailModal from "@/components/DetailModal";
-import LoadingOverlay from "@/components/LoadingOverlay";
+import { useLoading } from "@/contexts/LoadingContext";
 import {
   getDashboardStats,
   getChartData,
@@ -19,6 +19,7 @@ import { DiscussionItem, FilterOptions, SortOptions } from "@/types";
 const ReportPage: React.FC = () => {
   const stats = getDashboardStats();
   const chartData = getChartData();
+  const { setLoading } = useLoading();
 
   const [selectedItem, setSelectedItem] = useState<DiscussionItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,6 @@ const ReportPage: React.FC = () => {
     order: "desc",
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   // Filter and sort data - use all data, not limited by level
   const filteredAndSortedData = useMemo(() => {
@@ -104,15 +104,15 @@ const ReportPage: React.FC = () => {
 
   // Simulate API call
   const simulateApiCall = async () => {
-    setIsLoading(true);
+    setLoading(true);
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 500));
-    setIsLoading(false);
+    setLoading(false);
   };
 
   // Handle chart clicks (一级筛选 - clear other filters, only keep current filter)
   const handlePriorityClick = async (priority: string) => {
-    setIsLoading(true);
+    setLoading(true);
     // Simulate API call
     await simulateApiCall();
     setFilters({
@@ -122,7 +122,7 @@ const ReportPage: React.FC = () => {
   };
 
   const handleTypeClick = async (type: string) => {
-    setIsLoading(true);
+    setLoading(true);
     // Simulate API call
     await simulateApiCall();
     setFilters({
@@ -132,7 +132,7 @@ const ReportPage: React.FC = () => {
   };
 
   const handleSentimentClick = async (sentiment: string) => {
-    setIsLoading(true);
+    setLoading(true);
     // Simulate API call
     await simulateApiCall();
     setFilters({
@@ -150,7 +150,7 @@ const ReportPage: React.FC = () => {
 
   // Handle card clicks (level filter - clear other filters)
   const handleCardClick = async (level: "topic" | "post" | "reply") => {
-    setIsLoading(true);
+    setLoading(true);
     // Simulate API call
     await simulateApiCall();
     setFilters({ level });
@@ -209,7 +209,6 @@ const ReportPage: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
         />
-        <LoadingOverlay isLoading={isLoading} />
       </Layout>
     </ProtectedRoute>
   );
