@@ -25,9 +25,9 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats, onCardClick }) => {
       title: "Posts",
       value: stats.totalPosts,
       icon: MessageCircle,
-      gradient: "from-green-500 to-green-600",
+      gradient: "from-yellow-500 to-yellow-600",
       bgGradient:
-        "from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/30",
+        "from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/30",
       description: "Total posts created",
       level: "post" as const,
     },
@@ -35,9 +35,9 @@ const StatsCards: React.FC<StatsCardsProps> = ({ stats, onCardClick }) => {
       title: "Replies",
       value: stats.totalReplies,
       icon: Reply,
-      gradient: "from-purple-500 to-purple-600",
+      gradient: "from-gray-500 to-gray-600",
       bgGradient:
-        "from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/30",
+        "from-gray-50 to-gray-100 dark:from-gray-900/20 dark:to-gray-800/30",
       description: "Total replies posted",
       level: "reply" as const,
     },

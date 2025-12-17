@@ -147,6 +147,14 @@ body {
   .badge-gray {
     @apply bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400;
   }
+  
+  .badge-purple {
+    @apply bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400;
+  }
+  
+  .badge-teal {
+    @apply bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400;
+  }
 }
 
 @layer utilities {

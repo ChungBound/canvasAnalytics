@@ -88,11 +88,11 @@ const DataTable: React.FC<DataTableProps> = ({
   const getTypeColor = (type: string) => {
     switch (type) {
       case "lecture":
-        return "badge-primary";
+        return "badge-primary"; // blue
       case "workshop":
-        return "badge-warning";
+        return "badge-purple"; // purple
       case "assignment":
-        return "badge-danger";
+        return "badge-teal"; // teal
       default:
         return "badge-gray";
     }
