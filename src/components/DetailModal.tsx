@@ -260,7 +260,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ item, isOpen, onClose }) => {
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end space-x-3 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+        {/* <div className="flex justify-end space-x-3 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
           <button onClick={onClose} className="btn btn-secondary">
             Close
           </button>
@@ -273,7 +273,7 @@ const DetailModal: React.FC<DetailModalProps> = ({ item, isOpen, onClose }) => {
             <ExternalLink className="w-4 h-4 mr-2" />
             Open in Canvas
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );
